@@ -1,6 +1,7 @@
 <?php
 
-use Illuminate\Http\Request;
+use App\Http\Controllers\Api\CampaignController;
+use App\Http\Controllers\Api\DonationController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,6 +15,16 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+Route::middleware('auth:sanctum')->group(function () {
+    Route::controller(DonationController::class)
+    ->prefix('donations')
+    ->group(function () {
+        Route::get('/', 'index');
+        Route::post('/', 'store');
+        Route::put('/{donation}', 'update');
+        Route::delete('/{donation}', 'destroy');
+    });
+
+    Route::get('/campaigns', [CampaignController::class, 'index']);
 });
+
