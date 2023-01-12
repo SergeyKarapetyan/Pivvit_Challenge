@@ -15,16 +15,14 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->group(function () {
-    Route::controller(DonationController::class)
-    ->prefix('donations')
-    ->group(function () {
-        Route::get('/', 'index');
-        Route::post('/', 'store');
-        Route::put('/{donation}', 'update');
-        Route::delete('/{donation}', 'destroy');
-    });
-
-    Route::get('/campaigns', [CampaignController::class, 'index']);
+Route::controller(DonationController::class)
+->prefix('donations')
+->group(function () {
+    Route::get('/', 'index');
+    Route::post('/', 'store');
+    Route::put('/{donation}', 'update');
+    Route::delete('/{donation}', 'destroy');
 });
+
+Route::get('/campaigns', [CampaignController::class, 'index']);
 
